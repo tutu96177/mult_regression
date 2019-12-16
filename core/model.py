@@ -194,7 +194,7 @@ def build_model(train_X, train_y):
     mult_mlp = MLPRegressor(**init_params)
     cv_mae_mlp = cv_mae_(mult_mlp, train_X, train_y)
     mult_mlp = mult_mlp.fit(train_X, train_y)
-    return mult_knn
+    return mult_adbt
 
 # 保存模型
 from sklearn.externals import joblib
@@ -273,6 +273,8 @@ def run_model():
     eval_model_3 = np.mean(abs(df_res.values - test_y.values), axis=1)
     # 测试集评估模型
     from sklearn.metrics import mean_absolute_error
+    from sklearn.metrics import mean_squared_error
     eval_model_1 = mean_absolute_error(test_y.values, df_res, multioutput='raw_values')
     eval_model_2 = mean_absolute_error(test_y.values, df_res)
+    rmse = mean_squared_error(test_y.values, df_res)
     print()
